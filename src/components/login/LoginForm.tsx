@@ -1,16 +1,14 @@
 // src/components/LoginForm.tsx
 import React from 'react';
 import { Form, Input, Button } from 'antd';
-import { useDispatch } from 'react-redux';
-import { login } from '../../store/auth/authSlice';
 import { LoginRequest } from '../../utils/types/authTypes';
-import AuthRequest from '../../utils/request/authRequest';
+import { login } from '../../store/auth/authThunk';
+import { useAppDispatch } from '../../store';
 
 const LoginForm: React.FC = () => {
-    const dispatch = useDispatch();
-
+    const dispatch = useAppDispatch()
     const onFinish = (values: LoginRequest) => {
-        AuthRequest.login(values).then(result => result?.data && dispatch(login(result.data)))
+        dispatch(login(values))
     };
 
     return (

@@ -6,8 +6,12 @@ export interface UserSession {
     id: string
     username: string
     email: string
-    type: LoginType
+    type: string
     sessionId: string
+}
+
+export interface UserTokenSession extends UserSession {
+    token: string
 }
 
 export interface User {
