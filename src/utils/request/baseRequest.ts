@@ -1,8 +1,11 @@
 import axios, { AxiosError } from "axios";
 import Swal from "sweetalert2";
 import { WrapperResponse } from "../types/baseTypes";
+import Cookies from "js-cookie";
+import { CookieConstant, RequestConstant } from "../constants";
+import { toCookieName } from "../helpers/processHelper";
 
-export const client_id: string = process.env.REACT_APP_CLIENT_ID
+export const CLIENT_ID: string = process.env.REACT_APP_CLIENT_ID
 
 export const Toast = Swal.mixin({
     toast: true,
@@ -12,15 +15,12 @@ export const Toast = Swal.mixin({
     timerProgressBar: true,
 });
 
-export const toPath = (paths: string[]) => {
-    return paths.join("/")
-}
-
 const axiosInstance = axios.create();
 
 axiosInstance.interceptors.request.use((config) => {
-    config.headers["clientId"] = client_id;
-
+    config.headers["clientId"] = CLIENT_ID;
+    config.headers["X-API-VERSION"] = RequestConstant.V1
+    !config.headers["Authorization"] && (config.headers["Authorization"] = Cookies.get(toCookieName([CLIENT_ID, CookieConstant.ACCESS_TOKEN])))
     return config;
 });
 

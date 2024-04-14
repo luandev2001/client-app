@@ -1,14 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserSession } from '../../utils/types/authTypes';
+import { UserSession, UserTokenSession } from '../../utils/types/authTypes';
 
 export interface AuthState {
     isLoggedIn: boolean;
     token: string
     userSession: UserSession | null; // Customize the user type as needed
-}
-
-interface UserTokenSession extends UserSession {
-    token: string
 }
 
 const initialState: AuthState = {

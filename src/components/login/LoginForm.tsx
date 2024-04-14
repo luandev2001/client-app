@@ -1,43 +1,51 @@
 // src/components/LoginForm.tsx
-import React from 'react';
-import { Form, Input, Button } from 'antd';
-import { useDispatch } from 'react-redux';
-import { login } from '../../store/auth/authSlice';
-import { LoginRequest } from '../../utils/types/authTypes';
-import AuthRequest from '../../utils/request/authRequest';
+import React from "react";
+import { Form, Input, Button, Row, Space, Typography } from "antd";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LoginRequest } from "../../utils/types/authTypes";
+import { login } from "../../store/auth/authThunk";
+import { useAppDispatch } from "../../store";
 
 const LoginForm: React.FC = () => {
-    const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const onFinish = (values: LoginRequest) => {
+    dispatch(login(values));
+  };
 
-    const onFinish = (values: LoginRequest) => {
-        AuthRequest.login(values).then(result => result?.data && dispatch(login(result.data)))
-    };
+  return (
+    <Space direction="vertical" size={60} className="centered-container">
+      <Row>
+        <Typography.Title level={2}>Quản Lý Dịch Vụ</Typography.Title>
+      </Row>
+      <Row>
+        <Form name="normal_login" onFinish={onFinish}>
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: "Vui lòng điền tên đăng nhập" }]}
+          >
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Tên Đăng Nhập"
+            />
+          </Form.Item>
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "Vui lòng điền mật khẩu!" }]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Mật Khẩu"
+            />
+          </Form.Item>
 
-    return (
-        <Form name="login" onFinish={onFinish}>
-            <Form.Item
-                label="Tên đăng nhập"
-                name="username"
-                rules={[{ required: true, message: 'Xin vui lòng nhập tên đăng nhập!' }]}
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                label="Tên đăng nhập"
-                name="password"
-                rules={[{ required: true, message: 'Xin vui lòng nhập mật khẩu!' }]}
-            >
-                <Input.Password />
-            </Form.Item>
-
-            <Form.Item>
-                <Button type="primary" htmlType="submit">
-                    Đăng Nhập
-                </Button>
-            </Form.Item>
+          <Button type="primary" htmlType="submit">
+            Đăng Nhập
+          </Button>
         </Form>
-    );
+      </Row>
+    </Space>
+  );
 };
 
 export default LoginForm;
