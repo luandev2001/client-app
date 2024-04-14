@@ -1,0 +1,20 @@
+$primary-color: #f8f9fa;
+$secondary-color: #e9ecef;
+$tertiary-color: #dee2e6;
+$quaternary-color: #adb5bd;
+$quinary-color: #495057;
+
+%montserrat-font {
+  font-family: "Montserrat", sans-serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+body {
+  @extend %montserrat-font;
+  background: $primary-color;
+  color: $quinary-color;
+  font-size: 16px;
+  font-weight: 400;
+  height: 100vh;
+}

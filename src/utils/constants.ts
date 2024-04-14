@@ -11,7 +11,7 @@ export const CookieConstant = {
 }
 
 export const RequestConstant = {
-    V1: "1.0.0",
+    V1: "v1",
     // roles
     EVERYONE: "everyone",
     ADMIN: "admin",

@@ -3,7 +3,7 @@ import { toPath } from "../../helpers/processHelper";
 
 const AuthUrl = {
     V1: (() => {
-        const EVERYONE = toPath([RequestConstant.AUTH_URL, RequestConstant.EVERYONE, RequestConstant.V1]);
+        const EVERYONE = toPath([RequestConstant.AUTH_URL, RequestConstant.EVERYONE]);
         return {
             EVERYONE: {
                 LOGIN_URL: toPath([EVERYONE, "auths", "login"]),
